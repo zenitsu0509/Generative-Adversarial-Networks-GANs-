@@ -37,18 +37,13 @@ def define_encoder_block(layer_in,n_filters,batchnorm=True):
     return g
 
 def decoder_block(layer_in, skip_in, n_filters, dropout=True):
-	# weight initialization
+	
 	init = RandomNormal(stddev=0.02)
-	# add upsampling layer
 	g = Conv2DTranspose(n_filters, (4,4), strides=(2,2), padding='same', kernel_initializer=init)(layer_in)
-	# add batch normalization
 	g = BatchNormalization()(g, training=True)
-	# conditionally add dropout
 	if dropout:
 		g = Dropout(0.5)(g, training=True)
-	# merge with skip connection
 	g = Concatenate()([g, skip_in])
-	# relu activation
 	g = Activation('relu')(g)
 	return g
 
