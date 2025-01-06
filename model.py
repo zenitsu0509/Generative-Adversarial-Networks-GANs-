@@ -5,6 +5,7 @@ def define_discriminator(image_shape):
 
     merged = Concatenate()([in_src_image,in_target_image])
 
+	
     d = Conv2D(64, (4,4), strides=(2,2), padding='same', kernel_initializer=init)(merged)
     d = LeakyReLU(alpha=0.2)(d)
     d = Conv2D(128, (4,4), strides=(2,2), padding='same', kernel_initializer=init)(d)
